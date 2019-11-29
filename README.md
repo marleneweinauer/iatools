@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 styledtable <img src="man/figures/logo.png" align="right" alt="" width=140 height=162 />
 ========================================================================================
 
@@ -21,3 +22,16 @@ If you want to use `styledtable`, we recommend installing the **last stable vers
 # Install last stable version from GitHub
 devtools::install_github('R-package/styledTables', ref = "v0.1.0", build_opts = NULL)
 ```
+=======
+# iatools
+
+iatools is an R package that provides some tools to test for suspicious interviewer behaviour for CATI (telephone) interviews. 
+
+### Under Construction 
+
+This repository is currently under construction. Soon you will find here an updated version with a vignette. 
+
+```
+Latest until: Friday, December 6th 2019 
+```
+>>>>>>> ca50c491c5de0f2537f2410622ab52461af3f8bd
