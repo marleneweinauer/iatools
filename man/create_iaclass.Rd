@@ -4,8 +4,7 @@
 \alias{create_iaclass}
 \title{create_iaclass}
 \usage{
-create_iaclass(dat, variables, key_variables = NULL,
-  min_interviews = 15)
+create_iaclass(dat, variables, key_variables = NULL, min_interviews = 15, type)
 }
 \arguments{
 \item{dat}{survey data or time stamp data. dat must be a data.table or data.frame in wide-table-format with observations in rows and variables in collumns.

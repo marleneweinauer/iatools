@@ -2,6 +2,7 @@
 #survey_data 
 #tools = c("q20","q", "shares")
 
+#' @export
 collect_evidence <- function(
   time_data = NULL,
   survey_data = NULL, 

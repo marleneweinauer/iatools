@@ -28,6 +28,7 @@
 #' @param min_intervies the treshold of minimum of interviews conducted by an interviewer to be analysed
 #' @return object of class be_monk
 #'
+#'
 #' @details The restriction of dat to a specific mode is recommended! The tests are designed for CATI- telephone interviews
 #' @examples \dontrun{a <- 1}
 #' @export

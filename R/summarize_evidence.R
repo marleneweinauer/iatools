@@ -18,6 +18,8 @@ summarize_evidence <- function(conspi_DT.m) {
 
 
 # TODO: allgmein besser überlgen wie man hier die breks und clrs festlegt!!!!!!!!!!!!!!!!!!!!
+
+#' @export
 display_evidence <- function(conspi_DT.m)
 {
   conspi_DT.m <- copy(conspi_DT.m)

@@ -4,8 +4,14 @@
 \alias{inv_answer_shares}
 \title{Test answer distribution}
 \usage{
-inv_answer_shares(survey_data, answer_options_to_exclude, alpha = 0.05,
-  max_answer_options_of_question = 15)
+inv_answer_shares(
+  survey_data,
+  answer_options_to_exclude,
+  alpha = 0.05,
+  max_answer_options_of_question = 15,
+  translate_table = NULL,
+  output = "conspi"
+)
 }
 \arguments{
 \item{survey_data}{data table of class \strong{be_monk}}

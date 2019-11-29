@@ -3,11 +3,16 @@ Title: What the Package Does (one line, title case)
 Version: 0.0.1
 Authors@R: person("Marlene", "Weinauer", email = "marlene.weinauer@statistik.gv.at", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
-Depends: R (>= 3.4.2)
-Imports: data.table
+Depends: R (>= 3.6.1)
+Imports: data.table, 
+         scales, 
+         ggplot2, 
+         rmarkdown,
+         magrittr,
+         DT
 License: MIT
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
