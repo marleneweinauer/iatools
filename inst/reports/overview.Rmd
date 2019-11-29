@@ -1,0 +1,104 @@
+---
+title: "Overview"
+author: "Marlene Weinauer"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = F, warning = F)
+options(width = 10000)
+```
+
+
+```{r int, echo = F, message=FALSE}
+
+# Achtung! Dieses RMD kann nur in Kombination mit render_overview laufen. 
+# Dort werden die benötigten Daten erstellt. 
+# TODO: wahrscheinilch noch zu ändern 
+
+```
+# R Answer Shares 
+
+### Filter Variables
+
+```{r binom_filter, echo = F}
+
+if (exists("overview_shares_filter")) {
+kable(overview_shares_filter)
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+### All Variables
+
+```{r binom, echo = F}
+if (exists("overview_shares")) {
+kable(overview_shares)
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+
+# Time Patterns
+
+## Quantile Method
+
+
+### Filter Variables
+
+```{r q_filter, echo = F}
+if (exists("overview_q_filter")) {
+kable(overview_q_filter)
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+### All Variables
+
+```{r q, echo = F}
+if (exists("overview_q")) {
+kable(overview_q)
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+
+## 20%-Quantile Method 
+
+
+### Filter Variables
+
+```{r q20_filter, echo = F}
+if (exists("overview_q20_filter")) {
+kable(overview_q_filter)
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+### All Variables
+
+```{r q20, echo = F}
+if (exists("overview_q20")) {
+kable(overview_q20)
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+
+
+

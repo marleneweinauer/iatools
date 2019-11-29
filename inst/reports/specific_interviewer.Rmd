@@ -1,0 +1,96 @@
+---
+title: "Specific interviewer"
+author: "Marlene Weinauer"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = F, warning = F)
+options(width = 10000)
+
+```
+
+
+In diesem Report geht es um Interviewer  `r interviewer`. 
+
+
+```{r int, echo = F, message=FALSE}
+
+# Achtung! Dieses RMD kann nur in Kombination mit render_specific.r laufen. 
+# Dort werden die benötigten Daten erstellt. 
+# TODO: wahrscheinilch noch zu ändern 
+
+```
+# R Answer Shares 
+
+
+
+
+```{r binom_filter, echo = F}
+
+if (exists("shares_rmd")) {
+kable(shares_rmd, row.names = T)
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+
+
+# Time Patterns
+
+## Quantile Method
+
+
+```{r q, echo = F, results = "asis"}
+#if (exists("split_DT")) {
+#kable(split_DT)
+#} else {
+#  cat("This method was not applied!")
+#}
+
+if (exists("split_DT")) {
+for (el in names(split_DT)) {
+ # cat("### ", el, "\n")
+print(kable(split_DT[names(split_DT) == el][[1]], topn = 100, row.names = T) )
+  #cat("\n\n")}
+}
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+
+## 20%-Quantile Method 
+
+
+```{r q20, echo = F}
+if (exists("q20_conspi_rmd")) {
+kable(q20_conspi_rmd, row.names = T)
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+
+## Median
+
+
+```{r med, echo = F}
+if (exists("median_conspi_rmd")) {
+kable(median_conspi_rmd, row.names = T)
+} else {
+  cat("This method was not applied!")
+}
+
+```
+
+
+
+

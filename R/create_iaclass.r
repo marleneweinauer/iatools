@@ -34,7 +34,8 @@
 create_iaclass <- function(dat,
                       variables,
                       key_variables = NULL,
-                      min_interviews = 15
+                      min_interviews = 15, 
+                      type
                       ){
   dat <- data.table(dat)
   #dat <- sticky(dat)
@@ -75,8 +76,10 @@ create_iaclass <- function(dat,
   #attr(dat, "key_variables") <- key_variables
   setattr(dat, "key_variables", key_variables)
   }
+  
+  if (type == "time") { class(dat) <- c("monk_time", class(dat))}
+  if (type == "survey") { class(dat) <- c("monk_survey", class(dat))}
 
-  class(dat) <- c("be_monk", class(dat))
   return(dat)
 }
 
