@@ -12,6 +12,7 @@
   #  tools = c("shares")
   # conspi = T
 
+#' @export
 render_specific_interviewer <- function(survey_data, 
                                         time_data,
                                         path = "~/mnt/user_home/Git/interviewer_analysis/iatools/inst/reports",
