@@ -6,6 +6,8 @@
 
 #interviewer = "T101@statistik.gv.at"
 
+
+#' @export
 create_text <- function(conspi_DT.m, 
                         interviewer) {
   
