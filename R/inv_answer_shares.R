@@ -34,7 +34,7 @@ p_adjust_adapted <- function(p,n, method) {
 #' 
 #' This function investigates the answer shares by interviewer and detects deviances in shares.
 #' 
-#' @param survey_data data table of class **be_monk**
+#' @param survey_data data table of class **be_iaclass**
 #' @param answer_options_to_exclude a vector of answer options that shall not be included in the analysis
 #' @param alpha singnificance level on that shall be tested 
 #' @param max_answer_options_of_question threshold of number of answer options that the question shall be analysed 
@@ -54,8 +54,8 @@ inv_answer_shares <- function(
   
   survey_data <- copy(survey_data)
   
-  # test if object of class be_monk
-  stopifnot(inherits(survey_data, "monk_survey"))
+  # test if object of class be_iaclass
+  stopifnot(inherits(survey_data, "iaclass_survey"))
 
   # Stefan fragen ob das eher schon in die S3 Definition
   # eliminate unwanted answer_options
@@ -138,7 +138,7 @@ inv_answer_shares <- function(
            by=.(INTERVIEWER, variable)
            ]
   
-  class(shares_long_dt) <- c("monk_shares", class(shares_long_dt))
+  class(shares_long_dt) <- c("iaclass_shares", class(shares_long_dt))
   setattr(shares_long_dt, "key_variables", attr(data, "key_variables"))
   
   shares_long_dt[, marker := c(1L, rep(0L, .N-1L)), by=.(INTERVIEWER, variable)] 

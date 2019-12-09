@@ -17,10 +17,10 @@ The collum of IDs of observations must be named ID. The collum of interviewers m
 \item{min_intervies}{the treshold of minimum of interviews conducted by an interviewer to be analysed}
 }
 \value{
-object of class be_monk
+object of class be_iaclass
 }
 \description{
-Most functions of the ia tools package need data to be of class be_monk. The create_iaclass function
+Most functions of the ia tools package need data to be of class be_iaclass. The create_iaclass function
 transfers your data to this class.
 }
 \details{

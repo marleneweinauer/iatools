@@ -17,7 +17,7 @@
 
 #' create_iaclass
 #'
-#' Most functions of the ia tools package need data to be of class be_monk. The create_iaclass function
+#' Most functions of the ia tools package need data to be of class be_iaclass. The create_iaclass function
 #' transfers your data to this class.
 #'
 #'
@@ -26,7 +26,7 @@
 #' @param variables a character vector of variables you want to be tested in further tests
 #' @param key_variables a character vector of variables of high importance e.g. gate_questions
 #' @param min_intervies the treshold of minimum of interviews conducted by an interviewer to be analysed
-#' @return object of class be_monk
+#' @return object of class be_iaclass
 #'
 #'
 #' @details The restriction of dat to a specific mode is recommended! The tests are designed for CATI- telephone interviews
@@ -78,8 +78,8 @@ create_iaclass <- function(dat,
   setattr(dat, "key_variables", key_variables)
   }
   
-  if (type == "time") { class(dat) <- c("monk_time", class(dat))}
-  if (type == "survey") { class(dat) <- c("monk_survey", class(dat))}
+  if (type == "time") { class(dat) <- c("iaclass_time", class(dat))}
+  if (type == "survey") { class(dat) <- c("iaclass_survey", class(dat))}
 
   return(dat)
 }

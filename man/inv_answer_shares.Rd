@@ -14,7 +14,7 @@ inv_answer_shares(
 )
 }
 \arguments{
-\item{survey_data}{data table of class \strong{be_monk}}
+\item{survey_data}{data table of class \strong{be_iaclass}}
 
 \item{answer_options_to_exclude}{a vector of answer options that shall not be included in the analysis}
 

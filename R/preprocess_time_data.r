@@ -8,8 +8,8 @@ preprocess_time_data <- function(dat) {
 
   dat <- copy(dat)
   
-  # test if object of class be_monk
-  stopifnot(inherits(dat, "monk_time"))
+  # test if object of class be_iaclass
+  stopifnot(inherits(dat, "iaclass_time"))
   
   cn_time_stamps <-   colnames(dat[, -c("ID", "INTERVIEWER")])
   
