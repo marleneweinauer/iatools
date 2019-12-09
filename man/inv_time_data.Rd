@@ -16,7 +16,7 @@ inv_time_data(
 )
 }
 \arguments{
-\item{data}{data table of class \strong{be_monk}}
+\item{data}{data table of class \strong{be_iaclass}}
 
 \item{method}{"q20" if the 0.2 shall be compared; "median" if the median shall be compared.}
 

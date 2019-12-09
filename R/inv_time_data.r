@@ -17,7 +17,7 @@
 #' 
 #' This function investigates if an interviewer has a very low 0.2-quantile or median in any question. 
 #' 
-#' @param data data table of class **be_monk**
+#' @param data data table of class **be_iaclass**
 #' @param method "q20" if the 0.2 shall be compared; "median" if the median shall be compared. 
 #' @param answer_options_to_exclude a vector of answer options that shall not be included in the analysis
 #' @return data table with 0.2-quantiles/medians in times for each question-interviewer-combination
@@ -35,8 +35,8 @@ inv_time_data<- function(data,
   
   data <- copy(data)  
 
-  # test if object of class be_monk
-  stopifnot(inherits(data, "monk_time"))
+  # test if object of class be_iaclass
+  stopifnot(inherits(data, "iaclass_time"))
   
   # convert to numeric
   for (el in setdiff(colnames(data), c("INTERVIEWER", "ID"))) 
@@ -153,7 +153,7 @@ time_long_dt[ , median_INTERVIEWER := median(value, na.rm = T),
  conspi_col <-  colnames(time_short_dt)[grepl("conspi", colnames(time_short_dt))]
  time_short_dt <- time_short_dt[, c("INTERVIEWER", "variable", conspi_col), with = F]
  
- #class(time_short_dt) <- c("monk_speeder", class(time_short_dt))
+ #class(time_short_dt) <- c("iaclass_speeder", class(time_short_dt))
  
  setattr(time_short_dt, "key_variables", attr(data, "key_variables"))
 
