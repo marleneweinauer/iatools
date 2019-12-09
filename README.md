@@ -7,7 +7,7 @@ iatools is an R package that provides some tools to test for suspicious intervie
 ### Installation
 
 ```
-# You can also install the development version from GitHub:
+# development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("marleneweinauer/iatools")
 ```
