@@ -8,7 +8,7 @@
 
 
 #' @export
-create_text <- function(conspi_DT.m, 
+create_profile <- function(conspi_DT.m, 
                         interviewer) {
   
   # Summe Auffälligkeiten

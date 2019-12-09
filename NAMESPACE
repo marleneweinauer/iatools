@@ -2,7 +2,7 @@
 
 export(collect_evidence)
 export(create_iaclass)
-export(create_text)
+export(create_profile)
 export(display_evidence)
 export(inv_answer_shares)
 export(inv_time_data)
