@@ -16,3 +16,5 @@ LazyData: true
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
+Suggests: 
+    knitr

@@ -1,0 +1,198 @@
+---
+title: "iatools"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+Welcome to my very first R package! (still under construction).
+
+If you want to use my package and there are issues, just contact me: marlene.weinauer@statistik.gv.at
+
+# What is the package about?
+
+Interview falsification has been occurring for decades on different levels but is still often insufficiently detected and treated in practice. This is a severe issue as interview fabrication can have major effects on final estimates. 
+
+This R package provides some tools to test for suspicious interviewer behaviour for CATI (telephone) interviews. 
+
+The underlying article for this package appears in the December 2019 issue of the Statisticial Journal of the IAOS  under the title "Be a detective for a day: How to detect falsified interviews with Statistics" (https://content.iospress.com/articles/statistical-journal-of-the-iaos/sji190524).  As revealing conspicuous interviewers sometimes feels like detective work, the article intentionally has a little detective side story: So does the package.  The means of evidence are collected, investigated with various methods,  the conclusive evidence is filtered out and finally I suggest how to close the case.
+
+
+This package points out interviewers with suspicious behaivour - whether a suspicous interviewer is really a falsfier must be examined on a case-by-case basis. 
+Also I want to point out that the aim of this package is NOT to point a finger at interviewers, whose work I respect and appreciate a lot. The aim of this package is the improvement of data quality only.  
+
+
+
+```{r warning=FALSE}
+rm(list=ls())
+
+#library(devtools)
+#devtools::install_github("marleneweinauer/iatools")
+library(iatools)
+```
+
+
+# Data
+
+## Raw Data
+
+With iatools two types of data can be analysed for suspicious behaivour:
+
+* __survey_data__
+* __time_data__
+
+
+__survey_data__ and __time_data__ must each be a data.frame in wide-table-format with observations in rows and variables in collumns.
+The restriction to a specific mode is recommended: The tests are designed for CATI- telephone interviews. 
+
+This can be a bit annoying, but there are three things to obey in both data.frames:
+
+* There must be a collumn called "ID", indicating the ID of the observation (e.g. person's ID, househould's ID or enterprise's ID). 
+* There must be a collumn called "INTERVIEWER", indicating the ID of the interviewer who has conducted the interview.
+* If there is a multiple choice question with k answer options you must have k seperate collumns for each answer options. They must
+  end with _A1 to _Ak.
+  (e.g. for QUESTION_X with 4 options you need 4 collumns: QUESTION_X_A1, QUESTION_X_A2, QUESTION_X_A3, QUESTION_X_A4).
+  Also - and this is very important - you must not have _Ai (i from 1: 100) in any other collumn name than for this specific reason. 
+  
+In iatools there are two test data sets, fullfillying the three above mentioned conditions.  
+
+* __survey_data_test__
+* __time_data_test__
+
+
+They can be assesed via data():
+
+```{r warning=FALSE}  
+data("survey_data_test")
+data("time_data_test")
+
+```
+
+Within the first fivteen variables of __survey_data_test__ you see the "ID" variable and the "INTERVIEWER" variable. Also you see that the variable IUDEV is a multiple choice question with four answer options, indicated -- according to condition 3 -- by the collumns IUDEV_A1 to IUDEV_A4. 
+
+```{r warning=FALSE}
+head(survey_data_test[, 1:15])
+```
+
+
+## Class iaclass
+
+To use any other function of iatools your data needs to be converted to the class iaclass with the function
+_create_iaclass_. This function makes sure that your data fulfills the conditions stated above. 
+
+The parameter "variables" indicates which survey variables you want to use in the further analysis. In the shown example we use almost every variable. 
+
+The parameter "key_variables" indicates variables that are gate questions (-> that can -- if not read correctly -- help to shorten the path of the interview extremly) or other variables of key interest in the survey, e.g. "Are you employed?" in a survey about employment. 
+
+Make sure that you convert your time_data and your survey_data, respectively. 
+
+
+
+
+```{r warning=FALSE}
+# time_data 
+
+key_variables = c("IU", "IFU2", "GOV_A3", "IBUY")
+variables <- colnames(time_data_test)[which(colnames(time_data_test ) == "IU") : 
+                             which(colnames(time_data_test ) == "SEC_DBU")
+                           ]
+
+time_data <- create_iaclass(dat = time_data_test ,
+                      variables = variables, 
+                      key_variables = key_variables, 
+                      type = "time")
+
+survey_data <- create_iaclass(dat = survey_data_test ,
+                      variables = variables, 
+                      key_variables = key_variables, 
+                      type = "survey")
+
+```
+
+
+Your data is now of class iaclass:
+
+```{r warning=FALSE}
+class(time_data)
+class(survey_data)
+```
+
+
+
+# Investigation
+
+5 Methods to investigate for suspicious interviewer behaivour are implemented in _iatools_:
+
+* "shares"
+Falsifying interviewers may show different patterns in the answers given in comparison to honest interviewers. Therefore, especially for questions that result in a list of follow-up questions ("gate questions"), deviant shares - leading to shorter questionnaire paths - are common in falsified interviews. 
+The method "shares" tags shares that deviate from other interviewers' shares signficiantly. 
+* "median"
+Falsifying interviewers may have shorter time patterns. In this method, interviewers are tagged that show  median question times below the lower bound ot the robost confidence interval.
+* "q20"
+Again it's about time: With the median method only interviewers that falsify at least every second interview are tagaged. "q20" compares 20%-quantiles instead of medians to find interviews that may falsify between 20% anad 50% of their interviews. 
+* "q"
+Method "q" accounts for interviewers with overproportional many fast extreme times on specific questions. 
+* "cluster"
+Falsifying interviewers will make similar mistakes. Method "cluster" therefore shows dendograms of cluster analysis. 
+
+
+## Fast investigation
+
+With the function collect_evidence, the methods "q", "q20", "median" & "shares" can be applied. 
+As ouptut you get the R data.table "conspi_DT.m".
+
+```{r warning=FALSE}
+conspi_DT.m <- collect_evidence(
+  time_data = time_data, 
+  survey_data = survey_data, 
+  tools = c("q", "q20", "shares")
+)
+```
+
+conspi_DT.m is a data.table in long-format that indicates for each INTERVIEWER, each question and each method applied, whether conspicious patterns where found.
+
+```{r warning=FALSE}
+print(conspi_DT.m)
+```
+
+The object conpsi_DT.m can be plotted with _display_evidence()_. The produced table shows in how many questions each interviewer was conspicious in each method. 
+
+```{r warning=FALSE}
+display_evidence(conspi_DT.m)
+```
+
+In this table you get e.g. the impression that Interviewer INT_56 is suspcious as there are high numbers in "q20_conspi" or "q_conspi", indicating speeding or that Interviewer INT_18 is suspcious as there are high numbers in "shares_conpsi" or "shares_filter_conspi" (which is "shares_conspi" restricted to the key variables). 
+
+If we want to have a compact profile of these interviewers we can produce it with _create_profile()_ (This text is currently in german - sorry - , it will be translated soon)
+Here, is the created text for INT_18: 
+```{r warning=FALSE}
+create_profile(conspi_DT.m = conspi_DT.m, 
+                       interviewer = "INT_18") 
+
+```
+or here for INT_56
+```{r warning=FALSE}
+create_profile(conspi_DT.m = conspi_DT.m, 
+                       interviewer = "INT_56") 
+
+```
+
+If more detailed information about an interviewer is necessary, ta detailed RMD for this specific interviewer is produced with __render_specific_interviewer()__. 
+To be overseeable per default the RMD only contains conspicious information.
+If the Rmd shall contain all information on this interviewer the paramter conspi must be set FALSE. 
+
+If you want to run the example path below, you must replace "setapath" with a real path. 
+
+```{r warning=FALSE}
+#render_specific_interviewer(survey_data = survey_data, 
+#                            time_data = time_data, 
+#                            path = "setapath", 
+#                            interviewer = "INT_18"
+#                            )
+```
+
+...TODO...
+...This vignette is currently unter construction...
