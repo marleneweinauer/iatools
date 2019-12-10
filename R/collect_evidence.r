@@ -6,7 +6,13 @@
 collect_evidence <- function(
   time_data = NULL,
   survey_data = NULL, 
-  tools = c("q20","q", "shares")
+  tools = c("q20","q", "shares"), 
+  quantil_of_fastest_interviews = 0.05,
+  quantil_of_fastest_interviewer= 0.9,
+  min_of_fast_interviews = 10, 
+  answer_options_to_exclude_surv = c(-1,-2,-3),
+  alpha = 0.05, 
+  answer_options_to_exclude_time = 0
 ) {
   
 
@@ -19,10 +25,10 @@ prepro_time_data <- preprocess_time_data(time_data)
 
 time_short_dat <-  inv_time_data(data = prepro_time_data,
                                  method = setdiff(tools, "shares"),
-                                 answer_options_to_exclude = 0 ,
-                                 quantil_of_fastest_interviews = 0.05,
-                                 quantil_of_fastest_interviewer= 0.9,
-                                 min_of_fast_interviews = 10 )
+                                 answer_options_to_exclude = answer_options_to_exclude_time ,
+                                 quantil_of_fastest_interviews = quantil_of_fastest_interviews,
+                                 quantil_of_fastest_interviewer= quantil_of_fastest_interviewer,
+                                 min_of_fast_interviews =  min_of_fast_interviews )
 
   # Option 1: Time Data + Shares 
   if ("shares" %in% tools) {
@@ -60,8 +66,8 @@ time_short_dat <-  inv_time_data(data = prepro_time_data,
   # Option 3: Only Shares
   conspi_DT <- inv_answer_shares(
     survey_data = survey_data,
-    answer_options_to_exclude = c(-1,-2,-3),
-    alpha = 0.05, 
+    answer_options_to_exclude =  answer_options_to_exclude_surv,
+    alpha = alpha, 
     translate_table = NULL
   )
   

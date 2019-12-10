@@ -3,7 +3,7 @@
 # source("validate.r")
 
 
-
+#' @export
 preprocess_time_data <- function(dat) {
 
   dat <- copy(dat)

@@ -148,7 +148,8 @@ As ouptut you get the R data.table "conspi_DT.m".
 conspi_DT.m <- collect_evidence(
   time_data = time_data, 
   survey_data = survey_data, 
-  tools = c("q", "q20", "shares")
+  tools = c("q", "q20", "shares"), 
+  min_of_fast_interviews = 15
 )
 ```
 

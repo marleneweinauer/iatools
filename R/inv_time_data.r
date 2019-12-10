@@ -3,14 +3,14 @@
 # da wird immer hin und her geschwankt und das ist nicht wirklich elegant
 
       #    data = time_data
-       # data = prepro_time_data
-       #    method = c("q20", "median", "q")
-       #    answer_options_to_exclude = 0
-       #    quantil_of_fastest_interviews = 0.05
-       #   quantil_of_fastest_interviewer= 0.9
-       # min_of_fast_interviews = 5
-       # min_COUNT  = 20
-      
+        # data = prepro_time_data
+        #    method = c("q20", "median", "q")
+        #    answer_options_to_exclude = 0
+        #    quantil_of_fastest_interviews = 0.05
+        #   quantil_of_fastest_interviewer= 0.9
+        # min_of_fast_interviews = 5
+        # min_COUNT  = 20
+        # 
 
 
 #' Test for fast Quantiles in Answer Times 
