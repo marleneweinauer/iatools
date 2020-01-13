@@ -2,7 +2,7 @@
 
 iatools is an R package that provides some tools to test for suspicious interviewer behaviour for CATI (telephone) interviews.
 
-(This package is currently under construction: update planned until latest December 23rd)
+(This package is currently under construction)
 
 ### Installation
 
